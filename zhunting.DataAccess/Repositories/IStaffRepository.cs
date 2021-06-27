@@ -11,7 +11,8 @@ namespace zhunting.DataAccess.Repositories
     {
         public Task<List<Staff>> GetStaff();
         public Task<Staff> GetStaff(string name);
-        public Task EditStaff(Guid id);
+        public  Task<Staff> GetStaff(Guid id);
+        public Task EditStaff(Staff staff);
         public Task RemoveStaff(Guid id);
         public Task AddStaff(Staff staff);
     }

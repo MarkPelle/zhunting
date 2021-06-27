@@ -23,7 +23,7 @@ namespace zhunting.Core.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Huntable>> Get(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<List<Huntable>> Get(CancellationToken cancellationToken = default)
         {
             try
             {

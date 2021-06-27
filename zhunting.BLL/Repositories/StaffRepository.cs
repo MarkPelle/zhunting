@@ -18,14 +18,16 @@ namespace zhunting.BLL.Repositories
             _dbContext = dbcontext;
         }
 
-        public Task AddStaff(Staff staff)
+        public async Task AddStaff(Staff staff)
         {
-            throw new NotImplementedException();
+            await _dbContext.Staff.AddAsync(staff);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task EditStaff(Guid id)
+        public async Task EditStaff(Staff staff)
         {
-            throw new NotImplementedException();
+            _dbContext.Update(staff);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<List<Staff>> GetStaff()
@@ -38,9 +40,16 @@ namespace zhunting.BLL.Repositories
             return await _dbContext.Staff.AsNoTracking().SingleAsync(s => s.Name == name);
         }
 
-        public Task RemoveStaff(Guid id)
+        public async Task<Staff> GetStaff(Guid id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Staff.AsNoTracking().SingleAsync(s => s.ID == id);
+        }
+
+        public async Task RemoveStaff(Guid id)
+        {
+            var getStaff = GetStaff(id);
+            _dbContext.Remove(getStaff);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
