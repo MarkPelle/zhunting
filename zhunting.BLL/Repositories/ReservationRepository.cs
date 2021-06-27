@@ -18,19 +18,24 @@ namespace zhunting.BLL.Repositories
             _dbContext = dbContext;
         }
 
-        public Task AcceptReservation(Reservation reservation)
+        public async Task ApproveReservation(Reservation reservation)
         {
-            throw new NotImplementedException();
+            reservation.Status = ReservationStatus.Approved;
+            _dbContext.Update(reservation);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task AddReservation(Reservation reservation)
+        public async Task AddReservation(Reservation reservation)
         {
-            throw new NotImplementedException();
+            await _dbContext.Reservation.AddAsync(reservation);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task DeclineReservation(Reservation reservation)
+        public async Task DeclineReservation(Reservation reservation)
         {
-            throw new NotImplementedException();
+            reservation.Status = ReservationStatus.Declined;
+            _dbContext.Update(reservation);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<List<Reservation>> GetReservation()
@@ -48,9 +53,11 @@ namespace zhunting.BLL.Repositories
             return await _dbContext.Reservation.AsNoTracking().SingleAsync(r => r.Status == status);
         }
 
-        public Task PerformReservation(Reservation reservation)
+        public async Task PerformReservation(Reservation reservation)
         {
-            throw new NotImplementedException();
+            reservation.Status = ReservationStatus.Performed;
+            _dbContext.Update(reservation);
+           await _dbContext.SaveChangesAsync();
         }
     }
 }

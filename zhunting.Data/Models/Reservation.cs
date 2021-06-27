@@ -24,6 +24,10 @@ namespace zhunting.Data.Models
         public string ReserverCountry { get; set; }
 
         public int GuestNumber { get; set; }
-        public ReservationStatus Status { get; set; }
+
+        [MaxLength(255)]
+        public string Message { get; set; }
+
+        public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
     }
 }

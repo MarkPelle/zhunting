@@ -14,7 +14,7 @@ namespace zhunting.DataAccess.Repositories
         public Task<Reservation> GetReservation(ReservationStatus status);
         public Task AddReservation(Reservation reservation);
         public Task DeclineReservation(Reservation reservation);
-        public Task AcceptReservation(Reservation reservation);
+        public Task ApproveReservation(Reservation reservation);
         public Task PerformReservation(Reservation reservation);
     }
 }

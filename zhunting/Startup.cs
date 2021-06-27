@@ -43,9 +43,14 @@ namespace zhunting.Core
         {
             if (env.IsDevelopment())
             {
+                app.UseStaticFiles();
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "zhunting v1"));
+                app.UseSwaggerUI(c =>
+                    {
+                        c.SwaggerEndpoint("/swagger/v1/swagger.json", "zhunting v1");
+                        c.InjectStylesheet("/swagger-ui/custom.css");
+                    });
             }
 
             app.UseHttpsRedirection();
