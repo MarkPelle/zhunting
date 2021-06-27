@@ -12,6 +12,7 @@ namespace zhunting.BLL.Repositories
     public class ReservationRepository : IReservationRepository
     {
         private readonly ZhuntingDbContext _dbContext;
+
         public ReservationRepository(ZhuntingDbContext dbContext)
         {
             _dbContext = dbContext;
