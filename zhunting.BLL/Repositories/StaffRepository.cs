@@ -47,7 +47,7 @@ namespace zhunting.BLL.Repositories
 
         public async Task RemoveStaff(Guid id)
         {
-            var getStaff = GetStaff(id);
+            var getStaff = await GetStaff(id);
             _dbContext.Remove(getStaff);
             await _dbContext.SaveChangesAsync();
         }
