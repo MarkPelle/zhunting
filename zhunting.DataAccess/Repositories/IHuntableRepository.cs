@@ -13,7 +13,7 @@ namespace zhunting.DataAccess.Repositories
         public Task<Huntable> GetHuntable(Guid id);
         public Task<Huntable> GetHuntable(string name);
         public Task AddHuntable(Huntable huntable);
-        public Task RemoveHuntable(Huntable huntable);
-        public Task EditHuntable(Guid id);
+        public Task RemoveHuntable(Guid id);
+        public Task EditHuntable(Huntable huntable);
     }
 }

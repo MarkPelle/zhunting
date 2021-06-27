@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using zhunting.DataAccess.Repositories;
 
 namespace zhunting.Core.Controllers
 {
@@ -11,9 +12,11 @@ namespace zhunting.Core.Controllers
     [ApiController]
     public class StaffController : ControllerBase
     {
-        public StaffController()
+        private readonly IStaffRepository _staffRepository;
+        public StaffController(IStaffRepository staffRepository)
         {
-
+            _staffRepository = staffRepository;
         }
+
     }
 }
