@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using zhunting.DataAccess;
 
 namespace zhunting.DataAccess.Migrations
 {
     [DbContext(typeof(ZhuntingDbContext))]
-    partial class ZhuntingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210813121602_MediaRepository")]
+    partial class MediaRepository
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

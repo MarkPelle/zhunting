@@ -26,5 +26,23 @@ namespace zhunting.Core.Controllers
         {
             return await _mediaRepository.GetMedia();
         }
+
+        [HttpGet("{name}")]
+        public async Task<Media> Get(string name, CancellationToken cancellationToken = default)
+        {
+            return await _mediaRepository.GetMedia(name);
+        }
+
+        [HttpPost]
+        public async Task Post(Media media)
+        {
+            await _mediaRepository.AddMedia(media);
+        }
+
+        [HttpPatch]
+        public async Task Patch()
+        {
+
+        }
     }
 }
