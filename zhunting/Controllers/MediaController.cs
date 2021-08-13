@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -33,16 +35,27 @@ namespace zhunting.Core.Controllers
             return await _mediaRepository.GetMedia(name);
         }
 
+        [Authorize]
         [HttpPost]
-        public async Task Post(Media media)
+        public async Task Create([FromBody] Media media)
         {
             await _mediaRepository.AddMedia(media);
         }
 
-        [HttpPatch]
-        public async Task Patch()
+        [Authorize]
+        [HttpDelete]
+        public async Task Delete([FromBody] Guid id)
         {
+            await _mediaRepository.RemoveMedia(id);
+        }
 
+        [Authorize]
+        [HttpPatch]
+        public async Task Uppdate(Guid id, [FromBody] JsonPatchDocument<Media> patchEntity)
+        {
+            var toBePatched = await _mediaRepository.GetMedia(id);
+            patchEntity.ApplyTo(toBePatched);
+            await _mediaRepository.EditMedia(toBePatched);
         }
     }
 }
