@@ -55,9 +55,10 @@ namespace zhunting.Core.Controllers
         [HttpPatch]
         public async Task Uppdate(Guid id, [FromBody] JsonPatchDocument<Huntable> patchEntity)
         {
-            var toBePatched = await _huntableRepository.GetHuntable(id);
-            patchEntity.ApplyTo(toBePatched);
-            await _huntableRepository.EditHuntable(toBePatched);
+
+                var toBePatched = await _huntableRepository.GetHuntable(id);
+                patchEntity.ApplyTo(toBePatched);
+                await _huntableRepository.EditHuntable(toBePatched);
         }
     }
 }

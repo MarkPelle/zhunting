@@ -61,6 +61,7 @@ namespace zhunting.Core
             {
                 app.UseStaticFiles();
                 app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/errors");
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                     {

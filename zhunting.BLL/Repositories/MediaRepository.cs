@@ -19,19 +19,6 @@ namespace zhunting.BLL.Repositories
             _dbContext = dbcContext;
         }
 
-
-        public async Task AddMedia(Media media)
-        {
-            await _dbContext.AddAsync(media);
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task EditMedia(Media media)
-        {
-            _dbContext.Update(media);
-            await _dbContext.SaveChangesAsync();
-        }
-
         public async Task<List<Media>> GetMedia()
         {
             return await _dbContext.Media.ToListAsync();
@@ -47,10 +34,22 @@ namespace zhunting.BLL.Repositories
             return await _dbContext.Media.AsNoTracking().FirstOrDefaultAsync(m => m.Name == name);
         }
 
+        public async Task AddMedia(Media media)
+        {
+            await _dbContext.AddAsync(media);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task RemoveMedia(Guid id)
         {
             var media = await GetMedia(id);
             _dbContext.Media.Remove(media);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task EditMedia(Media media)
+        {
+            _dbContext.Update(media);
             await _dbContext.SaveChangesAsync();
         }
     }
