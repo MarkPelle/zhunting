@@ -14,6 +14,6 @@ namespace zhunting.DataAccess.Repositories
         public Task<Media> GetMedia(string name);
         public Task AddMedia(Media media);
         public Task RemoveMedia(Guid id);
-        public Task EditMedia(Guid id);
+        public Task EditMedia(Media media);
     }
 }

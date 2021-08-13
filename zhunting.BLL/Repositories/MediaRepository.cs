@@ -1,42 +1,57 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using zhunting.Data.Models;
+using zhunting.DataAccess;
 using zhunting.DataAccess.Repositories;
 
 namespace zhunting.BLL.Repositories
 {
     public class MediaRepository : IMediaRepository
     {
-        public Task AddMedia(Media media)
+
+        private readonly ZhuntingDbContext _dbContext;
+
+        public MediaRepository(ZhuntingDbContext dbcContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbcContext;
         }
 
-        public Task EditMedia(Guid id)
+
+        public async Task AddMedia(Media media)
         {
-            throw new NotImplementedException();
+            await _dbContext.AddAsync(media);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<List<Media>> GetMedia()
+        public async Task EditMedia(Media media)
         {
-            throw new NotImplementedException();
+            _dbContext.Update(media);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<Media> GetMedia(Guid id)
+        public async Task<List<Media>> GetMedia()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Media.ToListAsync();
         }
 
-        public Task<Media> GetMedia(string name)
+        public async Task<Media> GetMedia(Guid id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Media.AsNoTracking().SingleOrDefaultAsync(m => m.ID == id);
         }
 
-        public Task RemoveMedia(Guid id)
+        public async Task<Media> GetMedia(string name)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Media.AsNoTracking().FirstOrDefaultAsync(m => m.Name == name);
+        }
+
+        public async Task RemoveMedia(Guid id)
+        {
+            var media = await GetMedia(id);
+            _dbContext.Media.Remove(media);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

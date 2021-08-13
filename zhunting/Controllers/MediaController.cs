@@ -3,7 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using zhunting.Data.Models;
+using zhunting.DataAccess.Repositories;
 
 namespace zhunting.Core.Controllers
 {
@@ -11,9 +14,17 @@ namespace zhunting.Core.Controllers
     [ApiController]
     public class MediaController : ControllerBase
     {
-        public MediaController()
-        {
+        private readonly IMediaRepository _mediaRepository;
 
+        public MediaController(IMediaRepository mediaRepository)
+        {
+            _mediaRepository = mediaRepository;
+        }
+
+        [HttpGet]
+        public async Task<List<Media>> Get(CancellationToken cancellationToken = default)
+        {
+            return await _mediaRepository.GetMedia();
         }
     }
 }

@@ -1,55 +1,7 @@
-﻿body {
-    background: #000;
+﻿html {
+    background: #fff;
+    filter: invert(1) hue-rotate(180deg);
 }
-
-.swagger-ui .opblock.opblock-get {
-    border-color: #007fff;
-    background: rgb(32 78 125 / 26%);
-}
-
-.swagger-ui .opblock.opblock-post {
-    border-color: #49cc90;
-    background: rgb(0 245 132 / 26%);
-}
-
-.swagger-ui .opblock.opblock-delete {
-    border-color: #49cc90;
-    background: rgb(249 13 13 / 26%);
-}
-
-.swagger-ui .opblock.opblock-patch {
-    border-color: #50e3c2;
-    background: rgb(130 232 209 / 26%);
-}
-
-.swagger-ui .opblock-tag {
-    color: #929dbb;
-}
-
-.swagger-ui .info .title {
-    color: #8d97b1;
-}
-
-.swagger-ui .model-title {
-    color: #867e7e;
-}
-
-.swagger-ui .model .property.primitive {
-    color: #a09191;
-}
-
-.swagger-ui .prop-format {
-    color: #a97171;
-}
-
-.swagger-ui .prop-type {
-    color: #7e7ee0;
-}
-
-.swagger-ui .model {
-    color: #7f8db1;
-}
-
-.swagger-ui .opblock .opblock-summary-operation-id, .swagger-ui .opblock .opblock-summary-path, .swagger-ui .opblock .opblock-summary-path__deprecated {
-    color: #bbc1d0;
+html img {
+    filter: invert(1) hue-rotate(180deg);
 }

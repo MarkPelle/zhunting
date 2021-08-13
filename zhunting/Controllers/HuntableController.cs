@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -36,18 +37,21 @@ namespace zhunting.Core.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public async Task Create([FromBody] Huntable huntable)
         {
             await _huntableRepository.AddHuntable(huntable);
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task Delete([FromBody] Guid id)
         {
             await _huntableRepository.RemoveHuntable(id);
         }
 
+        [Authorize]
         [HttpPatch]
         public async Task Uppdate(Guid id, [FromBody] JsonPatchDocument<Huntable> patchEntity)
         {

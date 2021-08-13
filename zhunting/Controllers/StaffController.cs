@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -34,18 +35,21 @@ namespace zhunting.Core.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public async Task Create([FromBody] Staff staff)
         {
             await _staffRepository.AddStaff(staff);
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task Delete(Guid id)
         {
             await _staffRepository.RemoveStaff(id);
         }
 
+        [Authorize]
         [HttpPatch]
         public async Task Update(Guid id, JsonPatchDocument<Staff> patchDocument)
         {

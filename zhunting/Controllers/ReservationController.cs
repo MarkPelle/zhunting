@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,6 +20,7 @@ namespace zhunting.Core.Controllers
             _reservationRepository = reservationRepository;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<List<Reservation>> Get(CancellationToken cancellationToken = default)
         {
@@ -34,24 +35,28 @@ namespace zhunting.Core.Controllers
             }
         }
 
+
         [HttpPost]
         public async Task Create([FromBody] Reservation reservation)
         {
             await _reservationRepository.AddReservation(reservation);
         }
 
+        [Authorize]
         [HttpPost("approve")]
         public async Task ApproveReservation([FromBody] Reservation reservation)
         {
             await _reservationRepository.ApproveReservation(reservation);
         }
 
+        [Authorize]
         [HttpPost("decline")]
         public async Task DeclineReservation([FromBody] Reservation reservation)
         {
             await _reservationRepository.DeclineReservation(reservation);
         }
 
+        [Authorize]
         [HttpPost("perform")]
         public async Task PerformReservation([FromBody] Reservation reservation)
         {

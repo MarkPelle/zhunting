@@ -11,6 +11,7 @@ namespace zhunting.Data.Models
         Pending,
         Approved,
         Declined,
+        InProgress,
         Performed,
     }
 }

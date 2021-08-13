@@ -27,7 +27,6 @@ namespace zhunting.Data.Models
 
         [MaxLength(255)]
         public string Message { get; set; }
-
         public ReservationStatus Status { get; set; } = ReservationStatus.Pending;
     }
 }

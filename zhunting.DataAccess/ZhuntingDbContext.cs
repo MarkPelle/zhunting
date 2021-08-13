@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using zhunting.Data.Models;
 
 namespace zhunting.DataAccess
@@ -6,8 +7,12 @@ namespace zhunting.DataAccess
     public class ZhuntingDbContext : DbContext
     {
         public DbSet<Reservation> Reservation { get; set; }
+
         public DbSet<Huntable> Huntable { get; set; }
+        
         public DbSet<Staff> Staff { get; set; }
+        
+        public DbSet<Media> Media { get; set; }
 
         public ZhuntingDbContext(DbContextOptions<ZhuntingDbContext> options) : base(options)
         {

@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zhunting.DataAccess", "zhun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zhunting.BLL", "zhunting.BLL\zhunting.BLL.csproj", "{F6FE01D3-017C-407E-BCF1-8D5A30CB37DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zhunting.Identity", "zhunting.Identity\zhunting.Identity.csproj", "{072BAA35-A609-48F8-85B5-2C41666E56D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{78A9D478-5C42-4258-AEA0-5F0A06C060A6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{F6FE01D3-017C-407E-BCF1-8D5A30CB37DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6FE01D3-017C-407E-BCF1-8D5A30CB37DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6FE01D3-017C-407E-BCF1-8D5A30CB37DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{072BAA35-A609-48F8-85B5-2C41666E56D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{072BAA35-A609-48F8-85B5-2C41666E56D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{072BAA35-A609-48F8-85B5-2C41666E56D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{072BAA35-A609-48F8-85B5-2C41666E56D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78A9D478-5C42-4258-AEA0-5F0A06C060A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78A9D478-5C42-4258-AEA0-5F0A06C060A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78A9D478-5C42-4258-AEA0-5F0A06C060A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78A9D478-5C42-4258-AEA0-5F0A06C060A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using zhunting.DataAccess;
 using zhunting.BLL.Extensions;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace zhunting.Core
 {
@@ -29,6 +32,19 @@ namespace zhunting.Core
         public void ConfigureServices(IServiceCollection services)
         {
 
+            var sharedKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretKey"));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+                options =>
+                {
+                    options.Authority = "https://localhost:44318";
+                    options.Audience = "https://localhost:44318";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        IssuerSigningKey = sharedKey,
+                        RequireSignedTokens = true,
+                    };
+                });
             services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
@@ -56,6 +72,8 @@ namespace zhunting.Core
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
