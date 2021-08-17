@@ -26,7 +26,7 @@ namespace zhunting.Core.Controllers
         {
             try
             {
-                return await _huntableRepository.GetHuntable();
+                return await _huntableRepository.Get();
             }
             catch(OperationCanceledException)
             {
@@ -39,14 +39,14 @@ namespace zhunting.Core.Controllers
         [HttpPost]
         public async Task Create([FromBody] Huntable huntable)
         {
-            await _huntableRepository.AddHuntable(huntable);
+            await _huntableRepository.Add(huntable);
         }
 
         [Authorize]
         [HttpDelete]
         public async Task Delete([FromBody] Guid id)
         {
-            await _huntableRepository.RemoveHuntable(id);
+            await _huntableRepository.Remove(id);
         }
 
         [Authorize]
@@ -54,9 +54,9 @@ namespace zhunting.Core.Controllers
         public async Task Uppdate(Guid id, [FromBody] JsonPatchDocument<Huntable> patchEntity)
         {
 
-                var toBePatched = await _huntableRepository.GetHuntable(id);
+                var toBePatched = await _huntableRepository.Get(id);
                 patchEntity.ApplyTo(toBePatched);
-                await _huntableRepository.EditHuntable(toBePatched);
+                await _huntableRepository.Edit(toBePatched);
         }
     }
 }

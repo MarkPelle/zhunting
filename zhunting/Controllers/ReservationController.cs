@@ -26,7 +26,7 @@ namespace zhunting.Core.Controllers
         {
             try
             {
-                return await _reservationRepository.GetReservation();
+                return await _reservationRepository.Get();
             }
             catch (OperationCanceledException)
             {
@@ -39,28 +39,28 @@ namespace zhunting.Core.Controllers
         [HttpPost]
         public async Task Create([FromBody] Reservation reservation)
         {
-            await _reservationRepository.AddReservation(reservation);
+            await _reservationRepository.Add(reservation);
         }
 
         [Authorize]
         [HttpPost("approve")]
         public async Task ApproveReservation([FromBody] Reservation reservation)
         {
-            await _reservationRepository.ApproveReservation(reservation);
+            await _reservationRepository.Approve(reservation);
         }
 
         [Authorize]
         [HttpPost("decline")]
         public async Task DeclineReservation([FromBody] Reservation reservation)
         {
-            await _reservationRepository.DeclineReservation(reservation);
+            await _reservationRepository.Decline(reservation);
         }
 
         [Authorize]
         [HttpPost("perform")]
         public async Task PerformReservation([FromBody] Reservation reservation)
         {
-            await _reservationRepository.PerformReservation(reservation);
+            await _reservationRepository.Perform(reservation);
         }
 
     }

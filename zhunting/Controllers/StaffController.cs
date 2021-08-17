@@ -26,7 +26,7 @@ namespace zhunting.Core.Controllers
         {
             try
             {
-                return await _staffRepository.GetStaff();
+                return await _staffRepository.Get();
             }
             catch (InvalidOperationException)
             {
@@ -39,23 +39,23 @@ namespace zhunting.Core.Controllers
         [HttpPost]
         public async Task Create([FromBody] Staff staff)
         {
-            await _staffRepository.AddStaff(staff);
+            await _staffRepository.Add(staff);
         }
 
         [Authorize]
         [HttpDelete]
         public async Task Delete(Guid id)
         {
-            await _staffRepository.RemoveStaff(id);
+            await _staffRepository.Remove(id);
         }
 
         [Authorize]
         [HttpPatch]
         public async Task Update(Guid id, JsonPatchDocument<Staff> patchDocument)
         {
-            var toBePatched = await _staffRepository.GetStaff(id);
+            var toBePatched = await _staffRepository.Get(id);
             patchDocument.ApplyTo(toBePatched);
-            await _staffRepository.EditStaff(toBePatched);
+            await _staffRepository.Edit(toBePatched);
         }
     }
 }

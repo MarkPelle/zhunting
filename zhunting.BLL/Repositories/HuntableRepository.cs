@@ -17,35 +17,35 @@ namespace zhunting.BLL.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<List<Huntable>> GetHuntable()
+        public async Task<List<Huntable>> Get()
         {
             return await _dbContext.Huntable.AsNoTracking().Include(h => h.Image).ToListAsync();
         }
 
-        public async Task<Huntable> GetHuntable(Guid id)
+        public async Task<Huntable> Get(Guid id)
         {
             return await _dbContext.Huntable.AsNoTracking().SingleAsync(h => h.ID == id);
         }
 
-        public async Task<Huntable> GetHuntable(string name)
+        public async Task<Huntable> Get(string name)
         {
             return await _dbContext.Huntable.AsNoTracking().SingleAsync(h => h.Name == name);
         }
 
-        public async Task AddHuntable(Huntable huntable)
+        public async Task Add(Huntable huntable)
         {
             await _dbContext.AddAsync(huntable);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task RemoveHuntable(Guid id)
+        public async Task Remove(Guid id)
         {
-            var getHuntable = await GetHuntable(id);
+            var getHuntable = await Get(id);
             _dbContext.Remove(getHuntable);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task EditHuntable(Huntable huntable)
+        public async Task Edit(Huntable huntable)
         {
             _dbContext.Update(huntable);
             await _dbContext.SaveChangesAsync();
