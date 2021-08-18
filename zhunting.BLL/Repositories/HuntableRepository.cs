@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using zhunting.Data.Models;
 using zhunting.DataAccess;
@@ -17,19 +18,19 @@ namespace zhunting.BLL.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<List<Huntable>> Get()
+        public async Task<List<Huntable>> Get(CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Huntable.AsNoTracking().Include(h => h.Image).ToListAsync();
+            return await _dbContext.Huntable.AsNoTracking().Include(h => h.Image).ToListAsync(cancellationToken);
         }
 
-        public async Task<Huntable> Get(Guid id)
+        public async Task<Huntable> Get(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Huntable.AsNoTracking().SingleAsync(h => h.ID == id);
+            return await _dbContext.Huntable.AsNoTracking().SingleAsync(h => h.ID == id, cancellationToken);
         }
 
-        public async Task<Huntable> Get(string name)
+        public async Task<Huntable> Get(string name, CancellationToken cancellationToken)
         {
-            return await _dbContext.Huntable.AsNoTracking().SingleAsync(h => h.Name == name);
+            return await _dbContext.Huntable.AsNoTracking().SingleAsync(h => h.Name == name, cancellationToken);
         }
 
         public async Task Add(Huntable huntable)

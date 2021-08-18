@@ -26,7 +26,7 @@ namespace zhunting.Core.Controllers
         {
             try
             {
-                return await _huntableRepository.Get();
+                return await _huntableRepository.Get(cancellationToken);
             }
             catch(OperationCanceledException)
             {
@@ -51,10 +51,10 @@ namespace zhunting.Core.Controllers
 
         [Authorize]
         [HttpPatch]
-        public async Task Uppdate(Guid id, [FromBody] JsonPatchDocument<Huntable> patchEntity)
+        public async Task Uppdate(Guid id, [FromBody] JsonPatchDocument<Huntable> patchEntity, CancellationToken cancellationToken = default)
         {
 
-                var toBePatched = await _huntableRepository.Get(id);
+                var toBePatched = await _huntableRepository.Get(id, cancellationToken);
                 patchEntity.ApplyTo(toBePatched);
                 await _huntableRepository.Edit(toBePatched);
         }

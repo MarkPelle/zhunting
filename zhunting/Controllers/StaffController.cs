@@ -26,7 +26,7 @@ namespace zhunting.Core.Controllers
         {
             try
             {
-                return await _staffRepository.Get();
+                return await _staffRepository.Get(cancellationToken);
             }
             catch (InvalidOperationException)
             {
@@ -51,9 +51,9 @@ namespace zhunting.Core.Controllers
 
         [Authorize]
         [HttpPatch]
-        public async Task Update(Guid id, JsonPatchDocument<Staff> patchDocument)
+        public async Task Update(Guid id, JsonPatchDocument<Staff> patchDocument, CancellationToken cancellationToken = default)
         {
-            var toBePatched = await _staffRepository.Get(id);
+            var toBePatched = await _staffRepository.Get(id, cancellationToken);
             patchDocument.ApplyTo(toBePatched);
             await _staffRepository.Edit(toBePatched);
         }

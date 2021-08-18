@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using zhunting.Data.Models;
 using zhunting.DataAccess;
@@ -17,19 +18,19 @@ namespace zhunting.BLL.Repositories
             _dbContext = dbcontext;
         }
 
-        public async Task<List<Staff>> Get()
+        public async Task<List<Staff>> Get(CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Staff.AsNoTracking().ToListAsync();
+            return await _dbContext.Staff.AsNoTracking().ToListAsync(cancellationToken);
         }
 
-        public async Task<Staff> Get(Guid id)
+        public async Task<Staff> Get(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Staff.AsNoTracking().SingleAsync(s => s.ID == id);
+            return await _dbContext.Staff.AsNoTracking().SingleAsync(s => s.ID == id, cancellationToken);
         }
 
-        public async Task<Staff> Get(string name)
+        public async Task<Staff> Get(string name, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Staff.AsNoTracking().SingleAsync(s => s.Name == name);
+            return await _dbContext.Staff.AsNoTracking().SingleAsync(s => s.Name == name, cancellationToken);
         }
 
         public async Task Add(Staff staff)

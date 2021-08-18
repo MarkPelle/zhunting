@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using zhunting.Data.Models;
 using zhunting.DataAccess;
@@ -18,19 +19,19 @@ namespace zhunting.BLL.Repositories
             _dbContext = dbcContext;
         }
 
-        public async Task<List<Media>> Get()
+        public async Task<List<Media>> Get(CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Media.ToListAsync();
+            return await _dbContext.Media.ToListAsync(cancellationToken);
         }
 
-        public async Task<Media> Get(Guid id)
+        public async Task<Media> Get(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Media.AsNoTracking().SingleOrDefaultAsync(m => m.ID == id);
+            return await _dbContext.Media.AsNoTracking().SingleOrDefaultAsync(m => m.ID == id, cancellationToken);
         }
 
-        public async Task<Media> Get(string name)
+        public async Task<Media> Get(string name, CancellationToken cancellationToken)
         {
-            return await _dbContext.Media.AsNoTracking().FirstOrDefaultAsync(m => m.Name == name);
+            return await _dbContext.Media.AsNoTracking().FirstOrDefaultAsync(m => m.Name == name, cancellationToken);
         }
 
         public async Task Add(Media media)

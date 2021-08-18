@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using zhunting.Data.Models;
 using zhunting.DataAccess;
@@ -17,19 +18,19 @@ namespace zhunting.BLL.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<List<Reservation>> Get()
+        public async Task<List<Reservation>> Get(CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Reservation.AsNoTracking().ToListAsync();
+            return await _dbContext.Reservation.AsNoTracking().ToListAsync(cancellationToken);
         }
 
-        public async Task<Reservation> Get(ReservationStatus status)
+        public async Task<Reservation> Get(ReservationStatus status, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Reservation.AsNoTracking().SingleAsync(r => r.Status == status);
+            return await _dbContext.Reservation.AsNoTracking().SingleAsync(r => r.Status == status, cancellationToken);
         }
 
-        public async Task<Reservation> Get(string reserver)
+        public async Task<Reservation> Get(string reserver, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Reservation.AsNoTracking().SingleAsync(r => r.ReserverName == reserver);
+            return await _dbContext.Reservation.AsNoTracking().SingleAsync(r => r.ReserverName == reserver, cancellationToken);
         }
 
         public async Task Add(Reservation reservation)
@@ -59,7 +60,7 @@ namespace zhunting.BLL.Repositories
            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<Reservation> Get(Guid id)
+        public Task<Reservation> Get(Guid id, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

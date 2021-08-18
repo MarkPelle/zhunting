@@ -26,7 +26,7 @@ namespace zhunting.Core.Controllers
         {
             try
             {
-                return await _reservationRepository.Get();
+                return await _reservationRepository.Get(cancellationToken);
             }
             catch (OperationCanceledException)
             {

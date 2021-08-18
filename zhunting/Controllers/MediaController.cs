@@ -24,13 +24,13 @@ namespace zhunting.Core.Controllers
         [HttpGet]
         public async Task<List<Media>> Get(CancellationToken cancellationToken = default)
         {
-            return await _mediaRepository.Get();
+            return await _mediaRepository.Get(cancellationToken);
         }
 
         [HttpGet("{name}")]
         public async Task<Media> Get(string name, CancellationToken cancellationToken = default)
         {
-            return await _mediaRepository.Get(name);
+            return await _mediaRepository.Get(name,cancellationToken);
         }
 
         [Authorize]
@@ -49,9 +49,9 @@ namespace zhunting.Core.Controllers
 
         [Authorize]
         [HttpPatch]
-        public async Task Uppdate(Guid id, [FromBody] JsonPatchDocument<Media> patchEntity)
+        public async Task Uppdate(Guid id, [FromBody] JsonPatchDocument<Media> patchEntity, CancellationToken cancellationToken = default)
         {
-            var toBePatched = await _mediaRepository.Get(id);
+            var toBePatched = await _mediaRepository.Get(id, cancellationToken);
             patchEntity.ApplyTo(toBePatched);
             await _mediaRepository.Edit(toBePatched);
         }
