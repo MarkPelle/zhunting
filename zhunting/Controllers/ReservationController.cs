@@ -24,15 +24,7 @@ namespace zhunting.Core.Controllers
         [HttpGet]
         public async Task<List<Reservation>> Get(CancellationToken cancellationToken = default)
         {
-            try
-            {
-                return await _reservationRepository.Get(cancellationToken);
-            }
-            catch (OperationCanceledException)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                return null;
-            }
+            return await _reservationRepository.Get(cancellationToken);
         }
 
 
