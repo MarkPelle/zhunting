@@ -26,12 +26,12 @@ namespace zhunting.BLL.Repositories
 
         public async Task<Media> Get(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Media.AsNoTracking().SingleOrDefaultAsync(m => m.ID == id, cancellationToken);
+            return await _dbContext.Media.AsNoTracking().Include(i => i.Images).SingleOrDefaultAsync(m => m.ID == id, cancellationToken);
         }
 
         public async Task<Media> Get(string name, CancellationToken cancellationToken)
         {
-            return await _dbContext.Media.AsNoTracking().FirstOrDefaultAsync(m => m.Name == name, cancellationToken);
+            return await _dbContext.Media.AsNoTracking().Include(i => i.Images).FirstOrDefaultAsync(m => m.Name == name, cancellationToken);
         }
 
         public async Task Add(Media media)

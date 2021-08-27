@@ -21,6 +21,7 @@ namespace zhunting.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Media>().HasMany(i => i.Images);
 
         }
 
