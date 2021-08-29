@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using zhunting.DataAccess;
 
 namespace zhunting.DataAccess.Migrations
 {
     [DbContext(typeof(ZhuntingDbContext))]
-    partial class ZhuntingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210813121602_MediaRepository")]
+    partial class MediaRepository
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,16 +53,10 @@ namespace zhunting.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("MediaID")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Url")
-                        .HasMaxLength(125)
-                        .HasColumnType("nvarchar(125)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("MediaID");
 
                     b.ToTable("Image");
                 });
@@ -72,8 +68,10 @@ namespace zhunting.DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -150,20 +148,6 @@ namespace zhunting.DataAccess.Migrations
                         .HasForeignKey("ImageID");
 
                     b.Navigation("Image");
-                });
-
-            modelBuilder.Entity("zhunting.Data.Models.Image", b =>
-                {
-                    b.HasOne("zhunting.Data.Models.Media", "Media")
-                        .WithMany("Images")
-                        .HasForeignKey("MediaID");
-
-                    b.Navigation("Media");
-                });
-
-            modelBuilder.Entity("zhunting.Data.Models.Media", b =>
-                {
-                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

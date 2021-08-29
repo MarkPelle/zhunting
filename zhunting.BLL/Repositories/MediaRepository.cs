@@ -1,42 +1,57 @@
-﻿using System;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using zhunting.Data.Models;
+using zhunting.DataAccess;
 using zhunting.DataAccess.Repositories;
 
 namespace zhunting.BLL.Repositories
 {
     public class MediaRepository : IMediaRepository
     {
-        public Task AddMedia(Media media)
+
+        private readonly ZhuntingDbContext _dbContext;
+
+        public MediaRepository(ZhuntingDbContext dbcContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbcContext;
         }
 
-        public Task EditMedia(Guid id)
+        public async Task<List<Media>> Get(CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Media.Include(i => i.Images).AsNoTracking().ToListAsync(cancellationToken);
         }
 
-        public Task<List<Media>> GetMedia()
+        public async Task<Media> Get(Guid id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Media.AsNoTracking().Include(i => i.Images).SingleOrDefaultAsync(m => m.ID == id, cancellationToken);
         }
 
-        public Task<Media> GetMedia(Guid id)
+        public async Task<Media> Get(string name, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Media.AsNoTracking().Include(i => i.Images).FirstOrDefaultAsync(m => m.Name == name, cancellationToken);
         }
 
-        public Task<Media> GetMedia(string name)
+        public async Task Add(Media media)
         {
-            throw new NotImplementedException();
+            await _dbContext.AddAsync(media);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task RemoveMedia(Guid id)
+        public async Task Remove(Guid id)
         {
-            throw new NotImplementedException();
+            var media = await Get(id);
+            _dbContext.Media.Remove(media);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task Edit(Media media)
+        {
+            _dbContext.Update(media);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

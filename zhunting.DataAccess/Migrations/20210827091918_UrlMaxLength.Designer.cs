@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using zhunting.DataAccess;
 
 namespace zhunting.DataAccess.Migrations
 {
     [DbContext(typeof(ZhuntingDbContext))]
-    partial class ZhuntingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210827091918_UrlMaxLength")]
+    partial class UrlMaxLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

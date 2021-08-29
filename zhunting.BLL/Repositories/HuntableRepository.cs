@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using zhunting.Data.Models;
 using zhunting.DataAccess;
@@ -12,39 +12,44 @@ namespace zhunting.BLL.Repositories
     public class HuntableRepository : IHuntableRepository
     {
         private readonly ZhuntingDbContext _dbContext;
+
         public HuntableRepository(ZhuntingDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public Task AddHuntable(Huntable huntable)
+        public async Task<List<Huntable>> Get(CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Huntable.AsNoTracking().Include(h => h.Image).ToListAsync(cancellationToken);
         }
 
-        public Task EditHuntable(Guid id)
+        public async Task<Huntable> Get(Guid id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Huntable.AsNoTracking().SingleAsync(h => h.ID == id, cancellationToken);
         }
 
-        public async Task<List<Huntable>> GetHuntable()
+        public async Task<Huntable> Get(string name, CancellationToken cancellationToken)
         {
-            return await _dbContext.Huntable.AsNoTracking().ToListAsync();
+            return await _dbContext.Huntable.AsNoTracking().SingleAsync(h => h.Name == name, cancellationToken);
         }
 
-        public async Task<Huntable> GetHuntable(Guid id)
+        public async Task Add(Huntable huntable)
         {
-            return await _dbContext.Huntable.AsNoTracking().SingleAsync(h => h.ID == id);
+            await _dbContext.AddAsync(huntable);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<Huntable> GetHuntable(string name)
+        public async Task Remove(Guid id)
         {
-            return await _dbContext.Huntable.AsNoTracking().SingleAsync(h => h.Name == name);
+            var getHuntable = await Get(id);
+            _dbContext.Remove(getHuntable);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task RemoveHuntable(Huntable huntable)
+        public async Task Edit(Huntable huntable)
         {
-            throw new NotImplementedException();
+            _dbContext.Update(huntable);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

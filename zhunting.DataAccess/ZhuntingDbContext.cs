@@ -6,8 +6,12 @@ namespace zhunting.DataAccess
     public class ZhuntingDbContext : DbContext
     {
         public DbSet<Reservation> Reservation { get; set; }
+
         public DbSet<Huntable> Huntable { get; set; }
+        
         public DbSet<Staff> Staff { get; set; }
+        
+        public DbSet<Media> Media { get; set; }
 
         public ZhuntingDbContext(DbContextOptions<ZhuntingDbContext> options) : base(options)
         {
@@ -17,6 +21,7 @@ namespace zhunting.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Media>().HasMany(i => i.Images);
 
         }
 

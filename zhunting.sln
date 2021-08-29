@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zhunting.Data", "zhunting.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zhunting.DataAccess", "zhunting.DataAccess\zhunting.DataAccess.csproj", "{ED05E044-62D6-443E-9BE8-8227F9A7CB69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zhunting.BLL", "zhunting.BLL\zhunting.BLL.csproj", "{F6FE01D3-017C-407E-BCF1-8D5A30CB37DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zhunting.BLL", "zhunting.BLL\zhunting.BLL.csproj", "{F6FE01D3-017C-407E-BCF1-8D5A30CB37DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

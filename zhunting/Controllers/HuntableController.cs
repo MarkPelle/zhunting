@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using zhunting.Data.Models;
+using zhunting.DataAccess.Repositories;
 
 namespace zhunting.Core.Controllers
 {
@@ -11,9 +14,41 @@ namespace zhunting.Core.Controllers
     [ApiController]
     public class HuntableController : ControllerBase
     {
-        public HuntableController()
+        private readonly IHuntableRepository _huntableRepository;
+
+        public HuntableController(IHuntableRepository huntableRepository)
+        {
+            _huntableRepository = huntableRepository;
+        }
+
+        [HttpGet]
+        public async Task<List<Huntable>> Get(CancellationToken cancellationToken = default)
+        {
+            return await _huntableRepository.Get(cancellationToken);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task Create([FromBody] Huntable huntable)
+        {
+            await _huntableRepository.Add(huntable);
+        }
+
+        [Authorize]
+        [HttpDelete]
+        public async Task Delete([FromBody] Guid id)
+        {
+            await _huntableRepository.Remove(id);
+        }
+
+        [Authorize]
+        [HttpPatch]
+        public async Task Uppdate(Guid id, [FromBody] JsonPatchDocument<Huntable> patchEntity, CancellationToken cancellationToken = default)
         {
 
+            var toBePatched = await _huntableRepository.Get(id, cancellationToken);
+            patchEntity.ApplyTo(toBePatched);
+            await _huntableRepository.Edit(toBePatched);
         }
     }
 }

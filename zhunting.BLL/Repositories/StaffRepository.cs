@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using zhunting.Data.Models;
 using zhunting.DataAccess;
@@ -18,29 +18,38 @@ namespace zhunting.BLL.Repositories
             _dbContext = dbcontext;
         }
 
-        public Task AddStaff(Staff staff)
+        public async Task<List<Staff>> Get(CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Staff.AsNoTracking().ToListAsync(cancellationToken);
         }
 
-        public Task EditStaff(Guid id)
+        public async Task<Staff> Get(Guid id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Staff.AsNoTracking().SingleAsync(s => s.ID == id, cancellationToken);
         }
 
-        public async Task<List<Staff>> GetStaff()
+        public async Task<Staff> Get(string name, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Staff.AsNoTracking().ToListAsync();
+            return await _dbContext.Staff.AsNoTracking().SingleAsync(s => s.Name == name, cancellationToken);
         }
 
-        public async Task<Staff> GetStaff(string name)
+        public async Task Add(Staff staff)
         {
-            return await _dbContext.Staff.AsNoTracking().SingleAsync(s => s.Name == name);
+            await _dbContext.Staff.AddAsync(staff);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task RemoveStaff(Guid id)
+        public async Task Remove(Guid id)
         {
-            throw new NotImplementedException();
+            var getStaff = await Get(id);
+            _dbContext.Remove(getStaff);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task Edit(Staff staff)
+        {
+            _dbContext.Update(staff);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
