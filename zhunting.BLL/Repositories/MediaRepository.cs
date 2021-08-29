@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -21,7 +22,7 @@ namespace zhunting.BLL.Repositories
 
         public async Task<List<Media>> Get(CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Media.ToListAsync(cancellationToken);
+            return await _dbContext.Media.Include(i => i.Images).AsNoTracking().ToListAsync(cancellationToken);
         }
 
         public async Task<Media> Get(Guid id, CancellationToken cancellationToken = default)

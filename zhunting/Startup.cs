@@ -21,7 +21,7 @@ namespace zhunting.Core
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using zhunting.BLL;
 using zhunting.Data.Models;
 using zhunting.DataAccess.Repositories;
 
@@ -15,16 +17,26 @@ namespace zhunting.Core.Controllers
     public class MediaController : ControllerBase
     {
         private readonly IMediaRepository _mediaRepository;
+        private readonly IMapper _mapper;
 
-        public MediaController(IMediaRepository mediaRepository)
+        public MediaController(IMediaRepository mediaRepository, IMapper mapper)
         {
+            _mapper = mapper;
             _mediaRepository = mediaRepository;
         }
 
         [HttpGet]
-        public async Task<List<Media>> Get(CancellationToken cancellationToken = default)
+        public async Task<List<GetMediaCollectionDTO>> Get(CancellationToken cancellationToken = default)
         {
-            return await _mediaRepository.Get(cancellationToken);
+            var medias = await _mediaRepository.Get(cancellationToken);
+
+            var mediaDtoList = new List<GetMediaCollectionDTO>();
+            foreach (var item in medias)
+            {
+                mediaDtoList.Add(_mapper.Map<GetMediaCollectionDTO>(item));
+            }
+
+            return mediaDtoList;
         }
 
         [HttpGet("{name}")]
